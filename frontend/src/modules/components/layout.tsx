@@ -9,7 +9,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     return (
         <div>
             <Header />
-            <div className="flex items-start gap-2.5">
+            <div className="container flex items-start gap-2.5">
                 {children}
             </div>
         </div>

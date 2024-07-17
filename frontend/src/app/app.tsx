@@ -1,6 +1,7 @@
 import Layout from "@modules/components/layout"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Index from "."
+import SignUp from "./auth/signup"
 
 function App() {
     return (
@@ -12,7 +13,7 @@ function App() {
                 <Route path="/profile" element={<Layout><></></Layout>}/>
                 <Route path="/a/signout" element={<Layout><></></Layout>}/>
                 <Route path="/a/signin" element={<Layout><></></Layout>}/>
-                <Route path="/a/signup" element={<Layout><></></Layout>}/>
+                <Route path="/a/signup" element={<SignUp/>}/>
             </Routes>
         </BrowserRouter>
     )
