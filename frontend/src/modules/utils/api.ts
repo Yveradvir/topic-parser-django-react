@@ -18,11 +18,13 @@ export const LaunchedAxios = axios.create({
 })
 
 LaunchedAxios.interceptors.request.use(
-    request => {
+    async request => {
         if (import.meta.env.DEV) console.log("[ LaunchedAxios:request::use#fulfilled > ", request);
         
-        const csrf = cookies.get("access_csrf")
-        if (csrf) request.headers["X-CSRF-Token"] = csrf
+        const csrf = cookies.get("csrftoken")
+        if (!csrf) await UnlaunchedAxios.get("/core/a/csrf")
+        
+        request.headers["x-csrf-token"] = csrf
 
         return request
     },

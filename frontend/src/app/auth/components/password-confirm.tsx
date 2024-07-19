@@ -45,7 +45,7 @@ const PasswordConfirm: React.FC<Props> = ({ formik }) => {
                     htmlFor="confirm"
                     className="block text-sm font-bold text-gray-700 mb-2"
                 >
-                    Confirm Password
+                    Confirm
                 </label>
                 <input
                     id="confirm"

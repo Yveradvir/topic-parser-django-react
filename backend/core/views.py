@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -42,6 +44,7 @@ class HTTPOnlyCookieTokenRefreshView(TokenRefreshView):
         return response
 
 class HTTPOnlyTokenBlacklistView(TokenBlacklistView):
+    @csrf_exempt
     def post(self, request: Request, *args, **kwargs) -> Response:
         response = super().post(request, *args, **kwargs)
         
@@ -49,3 +52,9 @@ class HTTPOnlyTokenBlacklistView(TokenBlacklistView):
         response.delete_cookie("refresh")
         
         return response
+
+@csrf_exempt
+def set_csrf_cookies(request):
+    response = Response({'detail': 'CSRF cookie set'})
+    response.set_cookie('csrftoken', get_token(request))
+    return response

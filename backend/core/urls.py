@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import (
-    HTTPOnlyCookieTokenObtainPairView, 
+    HTTPOnlyCookieTokenObtainPairView,
     HTTPOnlyCookieTokenRefreshView,
     HTTPOnlyTokenBlacklistView,
-    RegistrationView
+    RegistrationView,
+    set_csrf_cookies
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('a/token', HTTPOnlyCookieTokenObtainPairView.as_view(), name='token-obtain-pair'),
     path('a/token/refresh', HTTPOnlyCookieTokenRefreshView.as_view(), name='token-refresh'),
     path('a/token/delete', HTTPOnlyTokenBlacklistView.as_view(), name='token-delete'),
+    path('a/csrf/', set_csrf_cookies, name='set-csrf-cookies'),
 ]
