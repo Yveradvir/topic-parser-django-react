@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Layout from "@modules/components/layout";
+import WikipediaEl from "./components/wikipedia";
 
 const Scanner = () => {
     const navigate = useNavigate();
@@ -33,8 +34,8 @@ const Scanner = () => {
                     </button>
                 </div>
                 {query && (
-                    <div className="mt-5 p-4 bg-gray-100 rounded-lg shadow">
-                        Элемент для наличия параметра q
+                    <div>
+                        <WikipediaEl query={query} />
                     </div>
                 )}
             </form>

@@ -38,6 +38,7 @@ class WikipediaScanView(APIView):
         serializer = QuerySerializer(data=request.data)
         if serializer.is_valid():
             query = serializer.validated_data['query']
+            print(query)
             data = wiki_parse(query)
             if data:
                 return Response(data, status=status.HTTP_200_OK)

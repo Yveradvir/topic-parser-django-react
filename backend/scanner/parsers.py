@@ -8,7 +8,7 @@ headers = {
 
 def wiki_parse(query: str) -> dict | None:
     markup = requests.get(
-        search_url, params={"q": query, "lang": "en"}, headers=headers
+        search_url, params={"q": query, "lang": "uk"}, headers=headers
     ).text
     soup = BeautifulSoup(markup, "html.parser")
     
