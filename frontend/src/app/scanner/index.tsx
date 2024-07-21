@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Layout from "@modules/components/layout";
 import WikipediaEl from "./components/wikipedia";
+import SitesEl from "./components/sites";
 
 const Scanner = () => {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Scanner = () => {
                 {query && (
                     <div>
                         <WikipediaEl query={query} />
+                        <SitesEl query={query} />
                     </div>
                 )}
             </form>

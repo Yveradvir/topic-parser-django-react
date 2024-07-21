@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { QueryI } from "./const";
+import { QueryI, StandartResultI } from "./const";
 import { LaunchedAxios } from "@modules/utils/api";
 
-interface WikipediaData {
-    name: string;
-    description: string;
-    link: string;
-}
-
 const WikipediaEl: React.FC<QueryI> = ({ query }) => {
-    const [data, setData] = useState<WikipediaData>({ name: "", description: "", link: "" });
+    const [data, setData] = useState<StandartResultI>({
+        name: "",
+        description: "",
+        link: "",
+    });
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchWikipediaData = async () => {
             try {
-                const response = await LaunchedAxios.post(`/scanner/wikipedia/`, { query });
+                const response = await LaunchedAxios.post(
+                    `/scanner/wikipedia/`,
+                    { query }
+                );
                 setData(response.data);
-                setError(null); 
+                setError(null);
             } catch (err) {
                 console.error("Error fetching Wikipedia data:", err);
                 setError("Failed to fetch Wikipedia data.");
@@ -33,11 +34,24 @@ const WikipediaEl: React.FC<QueryI> = ({ query }) => {
                 <div>
                     <h2 className="text-xl font-bold">{data.name}</h2>
                     <p className="mt-2 text-gray-700">{data.description}...</p>
-                    <a href={data.link} target="_blank" rel="noopener noreferrer" className="mt-2 text-blue-500 underline">
+                    <a
+                        href={data.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 text-blue-500 underline"
+                    >
                         Read more on Wikipedia
                     </a>
                 </div>
             )}
+            <a
+                href={`https://google.com/search?q=${query}%20wikipedia`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-lg inline-block"
+            >
+                Go with this query
+            </a>
         </div>
     );
 };
