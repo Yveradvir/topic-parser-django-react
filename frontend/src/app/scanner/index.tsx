@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Layout from "@modules/components/layout";
 import WikipediaEl from "./components/wikipedia";
 import SitesEl from "./components/sites";
+import RedditEl from "./components/reddit";
+import TwitterEl from "./components/twitter";
 
 const Scanner = () => {
     const navigate = useNavigate();
@@ -38,6 +40,8 @@ const Scanner = () => {
                     <div>
                         <WikipediaEl query={query} />
                         <SitesEl query={query} />
+                        <RedditEl query={query} />
+                        <TwitterEl query={query} /> 
                     </div>
                 )}
             </form>

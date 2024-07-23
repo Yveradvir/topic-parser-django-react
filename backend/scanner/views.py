@@ -6,7 +6,12 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .serializers import QuerySerializer
-from .parsers import parse_wiki, parse_sites
+from .parsers import (
+    parse_wiki, 
+    parse_sites, 
+    parse_reddit,
+    parse_twitter
+)
 
 def default_func(
     request, parse_func, additional_text: str = ""
@@ -27,3 +32,11 @@ class SitesScanView(APIView):
 class WikipediaScanView(APIView):
     def post(self, request):
         return default_func(request, parse_wiki, " wikipedia")
+    
+class RedditScanView(APIView):
+    def post(self, request):
+        return default_func(request, parse_reddit, " reddit")
+    
+class TwitterScanView(APIView):
+    def post(self, request):
+        return default_func(request, parse_twitter, " twitter")

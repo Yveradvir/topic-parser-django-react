@@ -15,6 +15,8 @@ def get_these(
     
     for n, tag in enumerate(soup.select("#rso > div > div > div"), 1): 
         a_tag = tag.select_one("a:has(h3)")
+        if until == 1:
+            print(in_statement, a_tag['href'])
         
         if a_tag and in_statement in a_tag['href']:
             description_tag = soup.select_one(f"#rso > div:nth-child({n}) > div > div > div > div:nth-child(2) > div > span")
@@ -47,3 +49,21 @@ def parse_sites(query: str) -> list | None:
     result = get_these(soup, "/", 4)
     
     return result
+
+def parse_reddit(query: str) -> dict | None:
+    markup = requests.get(
+        search_url, params={"q": query, "lang": "en"}, headers=headers
+    ).text
+    soup = BeautifulSoup(markup, "html.parser")
+    result = get_these(soup, "reddit.com", 1)
+    
+    return result[0] if result else None
+
+def parse_twitter(query: str) -> dict | None:
+    markup = requests.get(
+        search_url, params={"q": query, "lang": "en"}, headers=headers
+    ).text
+    soup = BeautifulSoup(markup, "html.parser")
+    result = get_these(soup, "twitter.com", 1)
+    
+    return result[0] if result else None

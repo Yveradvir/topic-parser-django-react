@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaWikipediaW, FaGoogle } from "react-icons/fa";
+import { FaTwitter, FaGoogle } from "react-icons/fa";
 import { QueryI, StandartResultI } from "./const";
 import { LaunchedAxios } from "@modules/utils/api";
 
-const WikipediaEl: React.FC<QueryI> = ({ query }) => {
+const TwitterEl: React.FC<QueryI> = ({ query }) => {
     const [data, setData] = useState<StandartResultI>({
         name: "",
         description: "",
@@ -12,17 +12,17 @@ const WikipediaEl: React.FC<QueryI> = ({ query }) => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchWikipediaData = async () => {
+        const fetchTwitterData = async () => {
             try {
-                const response = await LaunchedAxios.post(`/scanner/wikipedia/`, { query });
+                const response = await LaunchedAxios.post(`/scanner/twitter/`, { query });
                 setData(response.data);
                 setError(null);
             } catch (err) {
-                console.error("Error fetching Wikipedia data:", err);
-                setError("Failed to fetch Wikipedia data.");
+                console.error("Error fetching Twitter data:", err);
+                setError("Failed to fetch Twitter data.");
             }
         };
-        fetchWikipediaData();
+        fetchTwitterData();
     }, [query]);
 
     return (
@@ -38,12 +38,12 @@ const WikipediaEl: React.FC<QueryI> = ({ query }) => {
                         rel="noopener noreferrer"
                         className="mt-2 text-blue-500 underline flex items-center"
                     >
-                        <FaWikipediaW className="mr-2" /> Read more on Wikipedia
+                        <FaTwitter className="mr-2" /> Read more on Twitter
                     </a>
                 </div>
             )}
             <a
-                href={`https://google.com/search?q=${query}%20wikipedia`}
+                href={`https://google.com/search?q=${query}%20twitter`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 bg-blue-500 text-white py-1 px-4 rounded-lg inline-flex items-center"
@@ -54,4 +54,4 @@ const WikipediaEl: React.FC<QueryI> = ({ query }) => {
     );
 };
 
-export default WikipediaEl;
+export default TwitterEl;
