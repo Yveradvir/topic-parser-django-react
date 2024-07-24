@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 
+from .models import HistoryModel
 from .serializers import QuerySerializer
 from .parsers import (
     parse_wiki, 
@@ -40,3 +41,20 @@ class RedditScanView(APIView):
 class TwitterScanView(APIView):
     def post(self, request):
         return default_func(request, parse_twitter, " twitter")
+
+
+class HistoryPushView(APIView):
+    def post(self, request):
+        if request.user.is_authenticated:
+            serializer = QuerySerializer(data=request.data)
+            if serializer.is_valid():
+                history = HistoryModel(
+                    user=request.user,
+                    query=serializer.validated_data['query']
+                )
+                history.save()
+                return Response({"detail": "Query saved successfully"}, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response("Unauthoried", status=status.HTTP_401_UNAUTHORIZED)

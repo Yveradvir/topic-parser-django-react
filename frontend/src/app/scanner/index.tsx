@@ -5,16 +5,25 @@ import WikipediaEl from "./components/wikipedia";
 import SitesEl from "./components/sites";
 import RedditEl from "./components/reddit";
 import TwitterEl from "./components/twitter";
+import { LaunchedAxios } from "@modules/utils/api";
 
 const Scanner = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const query = new URLSearchParams(location.search).get("q");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const formData = new FormData(e.currentTarget);
         const queryValue = formData.get("q") as string;
+        
+        try {
+            await LaunchedAxios.post("/scanner/history_push/", {query: queryValue})
+        } catch (error) {
+            console.log(error);
+        }
+    
         navigate(`/scanner?q=${queryValue}`);
     };
 

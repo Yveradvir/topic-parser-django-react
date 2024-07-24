@@ -15,8 +15,6 @@ def get_these(
     
     for n, tag in enumerate(soup.select("#rso > div > div > div"), 1): 
         a_tag = tag.select_one("a:has(h3)")
-        if until == 1:
-            print(in_statement, a_tag['href'])
         
         if a_tag and in_statement in a_tag['href']:
             description_tag = soup.select_one(f"#rso > div:nth-child({n}) > div > div > div > div:nth-child(2) > div > span")
@@ -34,7 +32,7 @@ def get_these(
 
 def parse_wiki(query: str) -> dict | None:
     markup = requests.get(
-        search_url, params={"q": query, "lang": "en"}, headers=headers
+        search_url, params={"q": query, "lang": "en", "gl": "us"}, headers=headers
     ).text
     soup = BeautifulSoup(markup, "html.parser")
     result = get_these(soup, "wikipedia.org", 1)
@@ -43,7 +41,7 @@ def parse_wiki(query: str) -> dict | None:
 
 def parse_sites(query: str) -> list | None:
     markup = requests.get(
-        search_url, params={"q": query, "lang": "en"}, headers=headers
+        search_url, params={"q": query, "lang": "en", "gl": "us"}, headers=headers
     ).text
     soup = BeautifulSoup(markup, "html.parser")
     result = get_these(soup, "/", 4)
@@ -52,7 +50,7 @@ def parse_sites(query: str) -> list | None:
 
 def parse_reddit(query: str) -> dict | None:
     markup = requests.get(
-        search_url, params={"q": query, "lang": "en"}, headers=headers
+        search_url, params={"q": query, "lang": "en", "gl": "us"}, headers=headers
     ).text
     soup = BeautifulSoup(markup, "html.parser")
     result = get_these(soup, "reddit.com", 1)
@@ -61,7 +59,7 @@ def parse_reddit(query: str) -> dict | None:
 
 def parse_twitter(query: str) -> dict | None:
     markup = requests.get(
-        search_url, params={"q": query, "lang": "en"}, headers=headers
+        search_url, params={"q": query, "lang": "en", "gl": "us"}, headers=headers
     ).text
     soup = BeautifulSoup(markup, "html.parser")
     result = get_these(soup, "twitter.com", 1)

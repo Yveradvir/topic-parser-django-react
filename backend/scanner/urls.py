@@ -3,7 +3,8 @@ from .views import (
     SitesScanView, 
     WikipediaScanView,
     RedditScanView,
-    TwitterScanView
+    TwitterScanView,
+    HistoryPushView
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('wikipedia/', WikipediaScanView.as_view(), name='wikipedia-scan'),
     path('reddit/', RedditScanView.as_view(), name='reddit-scan'),
     path('twitter/', TwitterScanView.as_view(), name='twitter-scan'),
+    path('history_push/', HistoryPushView.as_view(), name='history-push'),
 ]
