@@ -4,7 +4,8 @@ from .views import (
     HTTPOnlyCookieTokenRefreshView,
     HTTPOnlyTokenBlacklistView,
     RegistrationView,
-    set_csrf_cookies
+    set_csrf_cookies,
+    paginated_history_view
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('a/token/refresh', HTTPOnlyCookieTokenRefreshView.as_view(), name='token-refresh'),
     path('a/token/delete', HTTPOnlyTokenBlacklistView.as_view(), name='token-delete'),
     path('a/csrf/', set_csrf_cookies, name='set-csrf-cookies'),
+    path('a/', paginated_history_view, name='history-get')
 ]

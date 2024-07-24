@@ -37,7 +37,7 @@ const SignIn = () => {
                 const { confirm, ...body } = values;
                 const response = await LaunchedAxios.post("/core/a/token", body);
 
-                if (response.status === 201) {
+                if (response.status === 200) {
                     navigate("/home");
                 }
             } catch (error) {
